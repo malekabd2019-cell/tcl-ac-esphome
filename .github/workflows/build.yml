@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build ESPHome Binary
         uses: esphome/build-action@v1.8.0
@@ -17,7 +17,7 @@ jobs:
           version: latest
 
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: firmware-bin
           path: .esphome/build/tcl-ac-controller/.pioenvs/tcl-ac-controller/firmware.bin
