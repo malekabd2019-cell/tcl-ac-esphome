@@ -1,0 +1,55 @@
+esphome:
+  name: tcl-ac-controller
+  friendly_name: "TCL Air Conditioner"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# استدعاء المكون من GitHub
+external_components:
+  - source: github://lNikazzzl/tcl_ac_esphome
+    components: [ tcl_ac ]
+
+# إعدادات الشبكة الخاصة بك
+wifi:
+  ssid: "TOTOLINK ND300"
+  password: "A777763945A"
+
+  # نقطة اتصال احتياطية في حال تعذر الاتصال بالراوتر
+  ap:
+    ssid: "Tcl-Ac-Fallback"
+    password: "password123"
+
+captive_portal:
+
+# ضروري لربط الجهاز بـ Home Assistant
+api:
+  password: ""
+
+ota:
+  password: ""
+
+logger:
+
+# إعداد منفذ السيريال للمكيف
+uart:
+  - id: uart_ac
+    tx_pin: GPIO17
+    rx_pin: GPIO16
+    baud_rate: 9600
+    parity: EVEN
+    stop_bits: 1
+
+# واجهة التحكم بالمكيف
+climate:
+  - platform: tcl_ac
+    name: "TCL AC"
+    uart_id: uart_ac
+    supports_cool: true
+    supports_heat: true
+    supports_fan_only: true
+    supports_dry: true
+    supports_auto: true
+    
