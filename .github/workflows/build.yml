@@ -1,0 +1,24 @@
+name: Build ESPHome Firmware
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build ESPHome Binary
+        uses: esphome/build-action@v1.8.0
+        with:
+          yaml_file: ac.yaml
+          version: latest
+
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware-bin
+          path: .esphome/build/tcl-ac-controller/.pioenvs/tcl-ac-controller/firmware.bin
+          
