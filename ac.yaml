@@ -7,11 +7,11 @@ esp32:
   framework:
     type: arduino
 
-# استدعاء المكون من GitHub مباشرة بدون تحديد مسار فرعي
+# استدعاء المكون من GitHub مباشرة
 external_components:
   - source: github://lNikazzzl/tcl_ac_esphome
 
-# إعدادات الشبكة الخاصة بك
+# إعدادات الشبكة الخاص بك
 wifi:
   ssid: "TOTOLINK ND300"
   password: "A777763945A"
@@ -22,11 +22,14 @@ wifi:
 
 captive_portal:
 
+# ربط الجهاز بـ Home Assistant
 api:
   password: ""
 
+# التصحيح: إضافة نوع المنصة لـ OTA
 ota:
-  password: ""
+  - platform: esphome
+    password: ""
 
 logger:
 
