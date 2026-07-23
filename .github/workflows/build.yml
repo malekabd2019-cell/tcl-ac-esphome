@@ -15,8 +15,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      # تثبيت إصدار ESPHome المتوافق مع المشروع الأصلي
-      - name: Install Compatible ESPHome
+      - name: Install ESPHome
         run: pip install esphome==2023.12.0
 
       - name: Build ESPHome Binary
