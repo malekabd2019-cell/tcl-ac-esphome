@@ -7,9 +7,12 @@ esp32:
   framework:
     type: arduino
 
-# استدعاء المشروع الأصلي مباشرة من GitHub
+# 💡 تحديد المسار المباشر للمكون داخل المستودع
 external_components:
-  - source: github://lNikazzzl/tcl_ac_esphome
+  - source:
+      type: git
+      url: https://github.com/lNikazzzl/tcl_ac_esphome
+      path: custom_components
 
 wifi:
   ssid: "TOTOLINK ND300"
