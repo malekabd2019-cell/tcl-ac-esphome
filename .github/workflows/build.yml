@@ -18,18 +18,26 @@ jobs:
       - name: Install ESPHome
         run: pip install esphome
 
-      - name: Download and Organize TCL AC Component
+      - name: Download and Fix Component Layout
         run: |
-          mkdir -p custom_components
+          rm -rf custom_components
+          mkdir -p custom_components/tcl_ac
           git clone https://github.com/lNikazzzl/tcl_ac_esphome.git temp_repo
+          
+          # نسخ الملفات بذكاء بحسب هيكلية المستودع
           if [ -d "temp_repo/components/tcl_ac" ]; then
-            cp -r temp_repo/components/tcl_ac custom_components/
+            cp -r temp_repo/components/tcl_ac/* custom_components/tcl_ac/
           elif [ -d "temp_repo/custom_components/tcl_ac" ]; then
-            cp -r temp_repo/custom_components/tcl_ac custom_components/
+            cp -r temp_repo/custom_components/tcl_ac/* custom_components/tcl_ac/
           else
-            mkdir -p custom_components/tcl_ac
             cp -r temp_repo/* custom_components/tcl_ac/
           fi
+          
+          # إيقاف التضارب وتصحيح مسار climate إذا كان في مجلد فرعي
+          if [ -f "custom_components/tcl_ac/climate/tcl_ac_climate.py" ] && [ ! -f "custom_components/tcl_ac/climate.py" ]; then
+            cp custom_components/tcl_ac/climate/tcl_ac_climate.py custom_components/tcl_ac/climate.py
+          fi
+
           rm -rf temp_repo
 
       - name: Build ESPHome Binary
