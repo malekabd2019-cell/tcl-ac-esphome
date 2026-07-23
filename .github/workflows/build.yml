@@ -13,32 +13,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
-      - name: Install ESPHome
-        run: pip install esphome
-
-      - name: Download and Fix Component Layout
-        run: |
-          rm -rf custom_components
-          mkdir -p custom_components/tcl_ac
-          git clone https://github.com/lNikazzzl/tcl_ac_esphome.git temp_repo
-          
-          # نسخ الملفات بذكاء بحسب هيكلية المستودع
-          if [ -d "temp_repo/components/tcl_ac" ]; then
-            cp -r temp_repo/components/tcl_ac/* custom_components/tcl_ac/
-          elif [ -d "temp_repo/custom_components/tcl_ac" ]; then
-            cp -r temp_repo/custom_components/tcl_ac/* custom_components/tcl_ac/
-          else
-            cp -r temp_repo/* custom_components/tcl_ac/
-          fi
-          
-          # إيقاف التضارب وتصحيح مسار climate إذا كان في مجلد فرعي
-          if [ -f "custom_components/tcl_ac/climate/tcl_ac_climate.py" ] && [ ! -f "custom_components/tcl_ac/climate.py" ]; then
-            cp custom_components/tcl_ac/climate/tcl_ac_climate.py custom_components/tcl_ac/climate.py
-          fi
-
-          rm -rf temp_repo
+      # تثبيت إصدار ESPHome المتوافق مع المشروع الأصلي
+      - name: Install Compatible ESPHome
+        run: pip install esphome==2023.12.0
 
       - name: Build ESPHome Binary
         run: esphome compile ac.yaml
