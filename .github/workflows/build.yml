@@ -18,6 +18,12 @@ jobs:
       - name: Install ESPHome
         run: pip install esphome
 
+      - name: Download TCL AC Component
+        run: |
+          mkdir -p custom_components
+          git clone https://github.com/lNikazzzl/tcl_ac_esphome.git custom_components/tcl_ac
+          touch custom_components/tcl_ac/__init__.py
+
       - name: Build ESPHome Binary
         run: esphome compile ac.yaml
 
