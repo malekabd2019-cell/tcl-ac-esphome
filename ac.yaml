@@ -7,13 +7,10 @@ esp32:
   framework:
     type: arduino
 
-# القراءة من المجلد المحلي الذي سيتم تجهيزه تلقائياً
+# استدعاء المشروع الأصلي مباشرة من GitHub
 external_components:
-  - source:
-      type: local
-      path: custom_components
+  - source: github://lNikazzzl/tcl_ac_esphome
 
-# إعدادات الشبكة الخاصة بك
 wifi:
   ssid: "TOTOLINK ND300"
   password: "A777763945A"
@@ -28,12 +25,10 @@ api:
   password: ""
 
 ota:
-  - platform: esphome
-    password: ""
+  password: ""
 
 logger:
 
-# إعداد منفذ السيريال للمكيف
 uart:
   - id: uart_ac
     tx_pin: GPIO17
@@ -42,7 +37,6 @@ uart:
     parity: EVEN
     stop_bits: 1
 
-# واجهة التحكم بالمكيف
 climate:
   - platform: tcl_ac
     name: "TCL AC"
